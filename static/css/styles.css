@@ -1,0 +1,141 @@
+#article-card {
+    transition: transform 0.3s ease;
+    /* Add transition for smooth scaling */
+}
+
+#article-card:hover {
+    transform: scale(1.05);
+    /* Scale up the card on hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    /* Add a box shadow for depth */
+    background-color: #f8f9fa;
+    /* Change background color on hover */
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+
+.navbar-nav .nav-link:not(#say-hello):hover {
+    color: #712cf9 !important;
+}
+
+a.code-btn {
+    color: #712cf9;
+    border: 2px solid #712cf9;
+    border-radius: 5px;
+}
+
+a.code-btn:hover {
+    background-color: #712cf9;
+    color: white;
+}
+
+a.code-btn:hover span img {
+    filter: invert(100%);
+}
+
+.code-btn svg {
+    fill: #712cf9;
+}
+
+.code-btn:hover svg {
+    fill: white;
+}
+
+.custom-card-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    /* White text */
+    transition: opacity 0.3s ease;
+    /* Smooth transition for text */
+}
+
+.custom-card-body .card-title {
+    width: 400px;
+    height: auto;
+    overflow: hidden;
+    white-space: normal;
+}
+
+.custom-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    border-radius: 10px;
+    /* Adjust to match the card's border-radius */
+    transition: opacity 0.5s ease;
+    /* Smoother transition */
+}
+
+.custom-card:hover .custom-card-overlay {
+    opacity: 1;
+    background-color: #141c3a;
+    /* Slightly darker overlay */
+}
+
+.custom-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    /* Adjust the value to change the roundness of the edges */
+}
+
+.custom-card-img-top img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    /* Same border-radius as the card */
+    transition: transform 0.3s ease;
+    /* Smooth transition for the image */
+}
+
+.custom-card:hover .custom-card-img-top img {
+    transform: scale(1.1);
+    /* Scale up the image on hover */
+}
+
+.custom-card:hover .custom-card-body {
+    opacity: 1;
+    /* Show text on hover */
+}
+
+.code-font {
+    font-family: 'Roboto Mono', monospace !important;
+}
+
+html nav {
+    font-family: 'Roboto Mono', monospace;
+}
+
+html body {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+h1,
+h2,
+h3 {
+    font-family: 'Roboto', sans-serif;
+    /* Add any other styles as needed */
+}
+
+header {
+    font-weight: 500;
+}
+
+.hero {
+    margin-top: 5%;
+}
