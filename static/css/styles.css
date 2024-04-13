@@ -13,9 +13,21 @@
     /* Align text to the left */
 }
 
+
+
 #readmore-article-btn {
     background-color: #712cf9;
     color: white;
+    align-self: flex-end;
+    margin-top: auto;
+    /* Align the button to the bottom end of the card */
+    width: fit-content;
+    /* Ensure button width fits its content */
+}
+
+.card-body {
+    flex-grow: 1;
+    flex-direction: column;
 }
 
 #readmore-article-btn:hover {
@@ -23,7 +35,13 @@
     /* Lighter shade of the original color */
 }
 
+
+/* Here we can change the article card height  */
 #article-card {
+    display: flex;
+    flex-direction: column;
+    height: 460px;
+    /* Adjust the height as needed */
     transition: transform 0.3s ease;
     /* Add transition for smooth scaling */
 }
@@ -36,6 +54,7 @@
     background-color: #f8f9fa;
     /* Change background color on hover */
 }
+
 
 .card-link {
     text-decoration: none;
