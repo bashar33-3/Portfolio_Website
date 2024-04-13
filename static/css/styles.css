@@ -285,15 +285,336 @@ header {
 }
 
 .navbar {
-    transition: top 0.3s ease-in-out;
+    position: relative;
+    /* Add position relative */
+    transition: top 0.3s ease-in-out, background 0.3s ease-in-out;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.3) 100%);
     backdrop-filter: blur(5px);
     /* Adjust blur strength as needed */
-    height: 60px;
     /* Adjust navbar height as needed */
 }
 
+.navbar::after {
+    content: '';
+    position: absolute;
+    top: 0%;
+    /* Initially position below the navbar */
+    left: 0;
+    width: 100%;
+    height: 0;
+    /* Initially no height */
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    /* Match the blur effect */
+    z-index: -1;
+    /* Behind navbar content */
+    transition: top 0.3s ease-in-out, height 0.3s ease-in-out;
+    /* Add transition for height */
+}
+
+.navbar.active::after {
+    top: 0%;
+    /* Slide down to cover the page */
+    height: 200px;
+    /* Adjust height as needed */
+}
+
+.navbar.active {
+    background: transparent;
+    /* Set background color to transparent when active */
+}
+
+@media (max-width: 990px) {
+    .navbar {
+        height: 50px;
+        /* Adjust navbar height for medium screens */
+    }
+}
+
+@media (min-width: 1000px) {
+    .navbar {
+        height: 75px;
+        /* Adjust navbar height for large screens */
+    }
+}
+
 .navbar.hidden {
-    top: -60px;
+    top: -100px;
     /* Adjust as needed */
+}
+
+.banner_area {
+    margin-top: 90px;
+    padding: 60px;
+    background: linear-gradient(to left, #712cf9, #000000);
+    background-size: 200% 100%;
+    /* Double the width */
+    animation: gradientMove 3s infinite alternate linear;
+    /* Use linear animation for smoother movement and alternate direction */
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+
+@media (max-width: 4000px) {
+    .banner_content {
+        flex-direction: column;
+        /* Change the direction of flex items */
+        align-items: flex-start;
+        /* Align all items at the start */
+    }
+
+    .page_link {
+        align-self: flex-start;
+        /* Align the page_link to the start of the column */
+        margin-bottom: 10px;
+        /* Add some space between the text decoration and the title */
+    }
+}
+
+@media (max-width: 2000px) {
+
+
+    .skills.slide-in {
+        margin-top: -40px !important;
+    }
+
+    .overflow-hidden {
+        max-height: 70vh !important;
+    }
+
+    .aboutme .container {
+        margin-top: 0px !important;
+        max-height: 400px;
+    }
+
+    .aboutme h1 {
+        font-size: 35px !important;
+        /* Adjust font size as needed */
+    }
+
+    .aboutme .lead {
+        font-size: 24px !important;
+        line-height: 1.3 !important;
+        /* Adjust font size as needed */
+    }
+}
+
+@media (max-width: 1500px) {
+    .skills.slide-in {
+        margin-top: -40px !important;
+    }
+
+    .overflow-hidden {
+        max-height: 70vh !important;
+    }
+
+    .aboutme .container {
+        margin-top: 0px !important;
+        max-height: 400px;
+    }
+
+    .aboutme h1 {
+        font-size: 35px !important;
+        /* Adjust font size as needed */
+    }
+
+    .aboutme .lead {
+        font-size: 24px !important;
+        line-height: 1.3 !important;
+        /* Adjust font size as needed */
+    }
+}
+
+@media (max-width: 1400px) {
+    .aboutme .container {
+        margin-top: 0 !important;
+        max-height: 400px;
+    }
+
+    .aboutme h1 {
+        font-size: 35px !important;
+        /* Adjust font size as needed */
+    }
+
+    .aboutme .lead {
+        font-size: 24px !important;
+        line-height: 1.3 !important;
+        /* Adjust font size as needed */
+    }
+}
+
+@media (max-width: 1300px) {
+
+
+    #article-single-title {
+        align-self: flex-start !important;
+    }
+
+    .skills.slide-in {
+        margin-top: -40px !important;
+    }
+
+    .aboutme .container {
+        margin-top: 0 !important;
+        max-height: 400px;
+    }
+
+    .aboutme h1 {
+        font-size: 33px !important;
+        /* Adjust font size as needed */
+    }
+
+    .aboutme .lead {
+        font-size: 23px !important;
+        line-height: 1.3 !important;
+        /* Adjust font size as needed */
+    }
+}
+
+@media (max-width: 1000px) {
+
+    .navbar {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+
+    }
+
+    .navbar-toggler-icon {
+        /* Adjust the width and height of the menu icon */
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    .navbar-brand img {
+        /* Adjust the width and height of the logo */
+        width: 40px;
+        height: 40px;
+    }
+
+    .hero.slide-in.active {
+        margin-top: 120px !important;
+        /* Adjust the margin-top value as needed */
+    }
+
+    .aboutme .container {
+        /* margin-top: 0 !important; */
+        max-height: 500px;
+    }
+
+    .aboutme h1 {
+        font-size: 30px !important;
+        /* Adjust font size as needed */
+    }
+
+    .aboutme .lead {
+        font-size: 20px !important;
+        line-height: 1.3 !important;
+        /* Adjust font size as needed */
+    }
+
+    #article-title {
+        font-size: medium !important;
+    }
+}
+
+@media (max-width: 700px) {
+    .skills.slide-in {
+        margin-top: 40px !important;
+    }
+
+    .aboutme .container {
+        margin-top: 0 !important;
+        max-height: 500px;
+    }
+
+    .aboutme h1 {
+        font-size: 24px !important;
+        /* Adjust font size as needed */
+    }
+
+    .aboutme .lead {
+        font-size: 20px !important;
+        line-height: 1.3 !important;
+        /* Adjust font size as needed */
+    }
+}
+
+@media (max-width: 500px) {
+    .skills.slide-in {
+        margin-top: 40px !important;
+    }
+
+    .aboutme .container {
+        margin-top: 0 !important;
+        max-height: 500px;
+    }
+
+    .aboutme h1 {
+        font-size: 24px !important;
+        /* Adjust font size as needed */
+    }
+
+    .aboutme .lead {
+        font-size: 20px !important;
+        line-height: 1.3 !important;
+        /* Adjust font size as needed */
+    }
+}
+
+@media (max-width: 400px) {
+
+    #download-resume-btn {
+        padding: 8px 16px;
+        /* Adjust padding to make the button smaller */
+        font-size: 14px;
+        /* Decrease font size to make the text smaller */
+    }
+
+
+    .skills.slide-in {
+        margin-top: 40px !important;
+    }
+
+    .aboutme .container {
+        margin-top: 0 !important;
+        max-height: 400px;
+    }
+
+    .aboutme h1 {
+        font-size: 20px !important;
+        /* Adjust font size as needed */
+    }
+
+    .aboutme .lead {
+        font-size: 16px !important;
+        line-height: 1.3 !important;
+        /* Adjust font size as needed */
+    }
+}
+
+@media (max-width: 300px) {
+    .aboutme .container {
+        margin-top: 0 !important;
+        max-height: 400px;
+    }
+
+    .aboutme h1 {
+        font-size: 17px !important;
+        /* Adjust font size as needed */
+    }
+
+    .aboutme .lead {
+        font-size: 15px !important;
+        line-height: 1.3 !important;
+        /* Adjust font size as needed */
+    }
 }
