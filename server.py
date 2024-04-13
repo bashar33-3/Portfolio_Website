@@ -15,7 +15,7 @@ import os
 
 # Flask WTForms imports
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, EmailField, PasswordField
+from wtforms import StringField, SubmitField, EmailField, PasswordField, TextAreaField
 from wtforms.validators import DataRequired, EqualTo, Email, Length
 from flask_ckeditor import CKEditor, CKEditorField
 
@@ -56,6 +56,17 @@ with app.app_context():
     # db.session.commit()
 
 
+### Forms
+app.secret_key = os.environ.get("FLASK_SECRET_KEY")
+ckeditor = CKEditor(app)
+
+class ContactForm(FlaskForm):
+    name = StringField("Name", validators=[DataRequired(), Length(min=3, max=25, message="Name should be between %(min)d and %(max)d characters long")])
+    email = EmailField("Email", validators=[DataRequired(), Email(message='Please Enter a Valid Email Address')])
+    message = TextAreaField("Message", validators=[DataRequired()])
+    submit = SubmitField("Submit")
+
+
 
 @app.route("/")
 def homepage():
@@ -70,7 +81,8 @@ def blogpage():
 
 @app.route('/contact')
 def contactpage():
-    return render_template("contact.html")
+    contact_form = ContactForm()
+    return render_template("contact.html", contact_form=contact_form)
 
 @app.route('/articles/<article_id>')
 def single_article_page(article_id):

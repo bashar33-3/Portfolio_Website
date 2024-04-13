@@ -3,11 +3,11 @@
 
 <body>
 
-    <section>
-        <div class="container-fluid" style="padding: 0; margin-top: 15px;">
+    <section class="slide-in active">
+        <div class="container-fluid " style="padding: 0; margin-top: 0px;">
             <div class="row">
                 <div class="col-12"
-                    style="height: calc(70vh - 200px); background-image: url('https://img.freepik.com/free-vector/top-view-dark-laptop-background-template_52683-7082.jpg?t=st=1712990451~exp=1712994051~hmac=c2fe3164c970dfae735aee2744765b1ba50aa69b213cb99bdf04b79588eafd29&w=1380'); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center;">
+                    style="height: calc(120vh - 300px); background-image: url('https://img.freepik.com/free-vector/top-view-dark-laptop-background-template_52683-7082.jpg?t=st=1712990451~exp=1712994051~hmac=c2fe3164c970dfae735aee2744765b1ba50aa69b213cb99bdf04b79588eafd29&w=1380'); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center;">
                     <h1 style="color: white; font-size: 3rem;">Articles</h1>
                 </div>
             </div>
@@ -19,7 +19,7 @@
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 g-3">
                     {% for article in articles %}
-                    <div class="col">
+                    <div class="col  slide-in">
                         <a href="{{url_for('single_article_page', article_id = article.id)}}" class="card-link">
                             <div id="article-card" class="card shadow-sm">
                                 <img src="{{article.img_url}}" class="bd-placeholder-img card-img-top"

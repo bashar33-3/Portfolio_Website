@@ -1,9 +1,37 @@
 {%include 'head.html'%}
 {%include 'header.html'%}
 
+
 <body>
-    <h1>Contact me</h1>
+    {% include 'header.html' %}
+    <div class="container mt-5">
+        <!-- Avatar Image -->
+        <div class="text-center position-relative">
+            <img src="/static/images/avatar-icon.svg" alt="Avatar" class="img-fluid mb-4"
+                style="max-width: 200px; z-index: 1; margin-top: 50px;">
+            <h2 class="mb-5 code-font">Thanks for taking the time to reach out. How can I help you today?</h2>
+        </div>
+        <!-- Form -->
+        <form id="contactform" action="" method="post">
+            {{ contact_form.hidden_tag() }}
+            <div class="row mb-3">
+                <div class="col">
+                    {{ contact_form.name.label(class="form-label fw-bold") }}
+                    {{ contact_form.name(class="form-control form-control-lg") }}
+                </div>
+                <div class="col">
+                    {{ contact_form.email.label(class="form-label fw-bold") }}
+                    {{ contact_form.email(class="form-control form-control-lg") }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    {{ contact_form.message.label(class="form-label fw-bold") }}
+                    {{ contact_form.message(class="form-control form-control-lg", rows="5") }}
+                </div>
+            </div>
+            <!-- Add more form fields here if needed -->
+            {{ contact_form.submit(id='contactsubmit-btn', class='btn btn-primary btn-lg') }}
+        </form>
+    </div>
 </body>
-
-
-{%include 'footer.html'%}
