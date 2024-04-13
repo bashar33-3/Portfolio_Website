@@ -67,6 +67,25 @@
     color: #712cf9 !important;
 }
 
+#newsletter-btn {
+    background-color: #712cf9;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    width: 100%;
+    padding: 7px 10px;
+    font-size: 16px;
+    transition: background-color 0.1s, color 0.1s, border-color 0.1s;
+    /* Add transition for smooth color change */
+}
+
+#newsletter-btn:hover {
+    background-color: white;
+    color: #712cf9;
+    border: 1px solid #712cf9;
+}
+
+
 a.code-btn {
     color: #712cf9;
     border: 2px solid #712cf9;
@@ -182,4 +201,44 @@ header {
 
 .hero {
     margin-top: 5%;
+}
+
+/* Change link color on hover */
+#banner-link a {
+    color: #ffffff;
+    /* Default color */
+    transition: color 0.3s ease;
+    /* Smooth transition */
+}
+
+#banner-link a:hover {
+    color: #5be9b9;
+    /* Color on hover */
+}
+
+.recent-article {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recent-article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.title-with-line {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 32px;
+}
+
+.title-with-line::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #d1d1d1;
+
+    /* Adjust color as needed */
 }

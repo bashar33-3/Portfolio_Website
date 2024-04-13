@@ -241,7 +241,7 @@
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 g-3">
                     {% for article in articles %}
                     <div class="col">
-                        <a href="#" class="card-link">
+                        <a href="{{url_for('single_article_page', article_id = article.id)}}" class="card-link">
                             <div id="article-card" class="card shadow-sm">
                                 <img src="{{article.img_url}}" class="bd-placeholder-img card-img-top"
                                     style="object-fit: cover;" width="100%" height="225" role="img"

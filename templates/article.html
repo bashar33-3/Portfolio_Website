@@ -4,7 +4,89 @@
 
 
 <body>
-    <h1>Single Article</h1>
+    <section class="banner_area"
+        style="margin-top: 100px; background: linear-gradient(to left, #712cf9, #5be9b9); padding: 40px;">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content d-md-flex justify-content-between align-items-center">
+                    <div class="mb-3 mb-md-0">
+                        <h2 style="color: white;">{{article.title}}</h2>
+                    </div>
+                    <div class="page_link" id="banner-link">
+                        <a href="{{url_for('homepage')}}" class="code-font" style="text-decoration: none;">Home/</a>
+                        <a href="{{url_for('contactpage')}}" class="code-font" style="text-decoration: none;">Blog
+                            Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog_area single-post-area area-padding pt-5 mt-5">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-8 posts-list">
+                    <div class="single-post">
+                        <div class="feature-img">
+                            <img class="img-fluid" src="{{article.img_url}}" alt="">
+                        </div>
+                        <div class="blog_details mt-5">
+                            <h3 class="mb-3">{{article.subtitle}}</h3>
+                            <p class="excert mb-5">
+                                {{article.body}}
+                            </p>
+                            <p>Posted on {{article.date}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="blog_right_sidebar">
+
+
+                        <aside class="single_sidebar_widget popular_post_widget"
+                            style="background-color: #f3f3f3; padding: 20px; margin-bottom: 30px;">
+                            <h3 class="widget_title title-with-line" style="font-size: 20px;">Recent Articles</h3>
+                            {% for recent_article in recent_articles %}
+                            <div class="media post_item d-flex mb-3 recent-article">
+                                <img src="{{ recent_article.img_url }}" alt="post" width="50" height="50"
+                                    style="flex-shrink: 0;">
+                                <div class="media-body"
+                                    style="margin-left: 10px; display: flex; flex-direction: column; justify-content: center;">
+                                    <a href="{{url_for('single_article_page', article_id = recent_article.id)}}"
+                                        style="text-decoration: none; color: #333;">
+                                        <h3 style="font-size: 16px; margin-bottom: 5px;">{{ recent_article.title }}</h3>
+                                    </a>
+                                    <p style="font-size: 12px; color: #777; margin-bottom: 0;">Posted on {{
+                                        recent_article.date }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </aside>
+
+
+                        <aside class="single_sidebar_widget newsletter_widget"
+                            style="background-color: #f3f3f3; padding: 20px; margin-bottom: 30px;">
+                            <h4 class="widget_title title-with-line" style="font-size: 20px;">Join Our Mailing List 💜
+                            </h4>
+                            <form action="#">
+                                <div class="form-group">
+                                    <input type="email" class="form-control mb-3" placeholder="Enter email" required="">
+                                </div>
+                                <button id="newsletter-btn" class="button" type="submit">Subscribe</button>
+                            </form>
+                        </aside>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    </section>
 </body>
 
 

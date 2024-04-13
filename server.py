@@ -65,12 +65,18 @@ def homepage():
 
 @app.route('/articles')
 def blogpage():
-    return render_template("blog.html")
+    articles = Article.query.all()
+    return render_template("blog.html", articles = articles)
 
 @app.route('/contact')
 def contactpage():
     return render_template("contact.html")
 
+@app.route('/articles/<article_id>')
+def single_article_page(article_id):
+    recent_articles = Article.query.order_by(Article.id.desc()).limit(6).all()
+    article = Article.query.filter(Article.id == article_id).one()
+    return render_template("article.html", article=article, recent_articles=recent_articles)
 
 
 
