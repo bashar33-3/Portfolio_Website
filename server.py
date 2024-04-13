@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, jsonify, flash, abort
+from flask import Flask, render_template, redirect, url_for, jsonify, flash, abort, request
 
 # SQL Alchemy imports 
 from flask_sqlalchemy import SQLAlchemy
@@ -22,6 +22,9 @@ from flask_ckeditor import CKEditor, CKEditorField
 # Datetime management imports
 import datetime as dt
 from dateutil import parser as date_parser
+
+# SMTP imports
+import smtplib
 
 
 app = Flask(__name__)
@@ -67,6 +70,24 @@ class ContactForm(FlaskForm):
     submit = SubmitField("Submit")
 
 
+# Functions
+# Sending email function
+
+def send_mail(name, email, message):
+    EMAIL = "bhamdanieh@gmail.com"
+    PASS  = os.environ.get("SMTP_PASS")
+    # PASS  = "ykraneoczgiuhldg"
+    smtp_server = "smtp.gmail.com"
+    print(PASS)
+
+    with smtplib.SMTP(smtp_server) as server:
+            server.starttls()
+            server.login(EMAIL, PASS)
+            server.sendmail(from_addr= EMAIL,
+                        to_addrs=EMAIL,
+                        msg=f"Subject:Portfolio New Message\n\nName:{name}\nEmail: {email}\nMessage:{message}")
+
+
 
 @app.route("/")
 def homepage():
@@ -79,9 +100,16 @@ def blogpage():
     articles = Article.query.all()
     return render_template("blog.html", articles = articles)
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contactpage():
     contact_form = ContactForm()
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        message = request.form['message']
+        send_mail(name=name, email=email, message=message)
+        return jsonify({"success": True})
+
     return render_template("contact.html", contact_form=contact_form)
 
 @app.route('/articles/<article_id>')
