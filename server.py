@@ -76,9 +76,7 @@ class ContactForm(FlaskForm):
 def send_mail(name, email, message):
     EMAIL = "bhamdanieh@gmail.com"
     PASS  = os.environ.get("SMTP_PASS")
-    # PASS  = "ykraneoczgiuhldg"
     smtp_server = "smtp.gmail.com"
-    print(PASS)
 
     with smtplib.SMTP(smtp_server) as server:
             server.starttls()
@@ -111,6 +109,7 @@ def contactpage():
         return jsonify({"success": True})
 
     return render_template("contact.html", contact_form=contact_form)
+
 
 @app.route('/articles/<article_id>')
 def single_article_page(article_id):

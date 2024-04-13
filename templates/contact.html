@@ -3,7 +3,6 @@
 
 
 <body>
-    {% include 'header.html' %}
     <div class="container mt-5">
         <!-- Avatar Image -->
         <div class="text-center position-relative">
@@ -34,4 +33,48 @@
             {{ contact_form.submit(id='contactsubmit-btn', class='btn btn-primary btn-lg') }}
         </form>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        // Function to handle form submission
+        document.addEventListener("DOMContentLoaded", function () {
+            const contactForm = document.getElementById('contactform');
+            const contactSubmitBtn = document.getElementById('contactsubmit-btn');
+
+            contactForm.addEventListener('submit', async function (event) {
+                event.preventDefault();
+
+                // Send the form data via AJAX
+                const formData = new FormData(contactForm);
+                const response = await fetch('/contact', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                // Parse the JSON response
+                const data = await response.json();
+
+                // If successful, display a SweetAlert
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Message Sent!',
+                        text: 'Thank you for reaching out. We have received your message and will get back to you soon.',
+                        confirmButtonText: 'OK'
+                    });
+
+                    // Clear form fields
+                    contactForm.reset();
+                } else {
+                    // If there's an error, display a SweetAlert with the error message
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong! Please try again later.',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
