@@ -526,7 +526,15 @@ header {
     }
 }
 
+@media (max-width: 800px) {
+    .row.mb-3 {
+        flex-direction: column;
+    }
+}
+
+
 @media (max-width: 700px) {
+
     .skills.slide-in {
         margin-top: 40px !important;
     }
@@ -549,6 +557,8 @@ header {
 }
 
 @media (max-width: 500px) {
+
+
     .skills.slide-in {
         margin-top: 40px !important;
     }

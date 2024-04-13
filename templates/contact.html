@@ -7,7 +7,7 @@
         <!-- Avatar Image -->
         <div class="text-center position-relative">
             <img src="/static/images/avatar-icon.svg" alt="Avatar" class="img-fluid mb-4"
-                style="max-width: 200px; z-index: 1; margin-top: 50px;">
+                style="max-width: 200px; z-index: 1; margin-top: 10px; height: 200px;">
             <h2 class="mb-5 code-font">Thanks for taking the time to reach out. How can I help you today?</h2>
         </div>
         <!-- Form -->
@@ -16,7 +16,7 @@
             <div class="row mb-3">
                 <div class="col">
                     {{ contact_form.name.label(class="form-label fw-bold") }}
-                    {{ contact_form.name(class="form-control form-control-lg") }}
+                    {{ contact_form.name(class="form-control form-control-lg mb-3") }}
                 </div>
                 <div class="col">
                     {{ contact_form.email.label(class="form-label fw-bold") }}
