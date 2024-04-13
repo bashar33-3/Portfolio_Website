@@ -22,12 +22,11 @@
 
             function checkSlide() {
                 elements.forEach(element => {
-                    const slideInAt = (window.scrollY + window.innerHeight) - element.clientHeight / 2;
-                    const elementBottom = element.offsetTop + element.clientHeight;
-                    const isHalfShown = slideInAt > element.offsetTop;
-                    const isNotScrolledPast = window.scrollY < elementBottom;
+                    const slideInAt = window.scrollY + window.innerHeight;
+                    const elementTop = element.offsetTop;
+                    const isHalfShown = slideInAt > elementTop;
 
-                    if (isHalfShown && isNotScrolledPast) {
+                    if (isHalfShown) {
                         element.classList.add("active");
                     } else {
                         element.classList.remove("active");
@@ -39,5 +38,7 @@
         });
 
     </script>
+
+
 
 </head>
