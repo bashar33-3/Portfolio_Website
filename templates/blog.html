@@ -1,10 +1,106 @@
-{%include 'head.html'%}
-{%include 'header.html'%}
+{% include 'head.html' %}
+{% include 'header.html' %}
 
 <body>
 
-    <h1>Articles</h1>
+    <section>
+        <div class="container-fluid" style="padding: 0; margin-top: 15px;">
+            <div class="row">
+                <div class="col-12"
+                    style="height: calc(70vh - 200px); background-image: url('https://img.freepik.com/free-vector/top-view-dark-laptop-background-template_52683-7082.jpg?t=st=1712990451~exp=1712994051~hmac=c2fe3164c970dfae735aee2744765b1ba50aa69b213cb99bdf04b79588eafd29&w=1380'); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center;">
+                    <h1 style="color: white; font-size: 3rem;">Articles</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog" style="margin-top: 75px;">
+        <div class="album py-5">
+            <div class="container ">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+
+
+                    <div class="col">
+                        <a href="#" class="card-link">
+                            <div id="article-card" class="card shadow-sm">
+                                <img src="/static/images/blog1.jpg" class="bd-placeholder-img card-img-top"
+                                    style="object-fit: cover;" width="100%" height="225" role="img"
+                                    aria-label="Placeholder: Thumbnail" alt="Placeholder image">
+                                <div class="card-body">
+                                    <p class="card-title" id="article-title"> Title of article</p>
+                                    <p class="card-text">This is a wider card with supporting text below
+                                        as a
+                                        natural
+                                        lead-in to additional content. This content is a little bit longer.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button id="readmore-article-btn" type="button"
+                                                class="btn btn-sm code-font">Read
+                                                More</button>
+                                        </div>
+                                        </small>
+                                        <small id="article-date" class="text-body-secondary">4/13/2024</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="#" class="card-link">
+                            <div id="article-card" class="card shadow-sm">
+                                <img src="/static/images/blog1.jpg" class="bd-placeholder-img card-img-top"
+                                    style="object-fit: cover;" width="100%" height="225" role="img"
+                                    aria-label="Placeholder: Thumbnail" alt="Placeholder image">
+                                <div class="card-body">
+                                    <p class="card-title" id="article-title"> Title of article</p>
+                                    <p class="card-text">This is a wider card with supporting text below
+                                        as a
+                                        natural
+                                        lead-in to additional content. This content is a little bit longer.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button id="readmore-article-btn" type="button"
+                                                class="btn btn-sm code-font">Read
+                                                More</button>
+                                        </div>
+                                        </small>
+                                        <small id="article-date" class="text-body-secondary">4/13/2024</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="#" class="card-link">
+                            <div id="article-card" class="card shadow-sm">
+                                <img src="/static/images/blog1.jpg" class="bd-placeholder-img card-img-top"
+                                    style="object-fit: cover;" width="100%" height="225" role="img"
+                                    aria-label="Placeholder: Thumbnail" alt="Placeholder image">
+                                <div class="card-body">
+                                    <p class="card-title" id="article-title"> Title of article</p>
+                                    <p class="card-text">This is a wider card with supporting text below
+                                        as a
+                                        natural
+                                        lead-in to additional content. This content is a little bit longer.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button id="readmore-article-btn" type="button"
+                                                class="btn btn-sm code-font">Read
+                                                More</button>
+                                        </div>
+                                        </small>
+                                        <small id="article-date" class="text-body-secondary">4/13/2024</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+
 </body>
 
-
-{%include 'footer.html'%}
+{% include 'footer.html' %}
