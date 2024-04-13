@@ -16,5 +16,28 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap">
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const elements = document.querySelectorAll(".slide-in");
+
+            function checkSlide() {
+                elements.forEach(element => {
+                    const slideInAt = (window.scrollY + window.innerHeight) - element.clientHeight / 2;
+                    const elementBottom = element.offsetTop + element.clientHeight;
+                    const isHalfShown = slideInAt > element.offsetTop;
+                    const isNotScrolledPast = window.scrollY < elementBottom;
+
+                    if (isHalfShown && isNotScrolledPast) {
+                        element.classList.add("active");
+                    } else {
+                        element.classList.remove("active");
+                    }
+                });
+            }
+
+            window.addEventListener("scroll", checkSlide);
+        });
+
+    </script>
 
 </head>

@@ -4,7 +4,7 @@
 
 
 <body>
-    <section class="banner_area"
+    <section class="banner_area slide-in active"
         style="margin-top: 100px; background: linear-gradient(to left, #712cf9, #5be9b9); padding: 40px;">
         <div class="banner_inner d-flex align-items-center">
             <div class="container">
@@ -27,7 +27,7 @@
             <div class="row">
 
                 <div class="col-lg-8 posts-list">
-                    <div class="single-post">
+                    <div class="single-post slide-in active">
                         <div class="feature-img">
                             <img class="img-fluid" src="{{article.img_url}}" alt="">
                         </div>
@@ -45,7 +45,7 @@
                     <div class="blog_right_sidebar">
 
 
-                        <aside class="single_sidebar_widget popular_post_widget"
+                        <aside class="single_sidebar_widget popular_post_widget slide-in active"
                             style="background-color: #f3f3f3; padding: 20px; margin-bottom: 30px;">
                             <h3 class="widget_title title-with-line" style="font-size: 20px;">Recent Articles</h3>
                             {% for recent_article in recent_articles %}
@@ -66,7 +66,7 @@
                         </aside>
 
 
-                        <aside class="single_sidebar_widget newsletter_widget"
+                        <aside class="single_sidebar_widget newsletter_widget slide-in"
                             style="background-color: #f3f3f3; padding: 20px; margin-bottom: 30px;">
                             <h4 class="widget_title title-with-line" style="font-size: 20px;">Join Our Mailing List 💜
                             </h4>
@@ -87,6 +87,8 @@
 
 
     </section>
+
+
 </body>
 
 
