@@ -1,11 +1,58 @@
 {% include 'head.html' %}
-{% include 'header.html' %}
 {{ ckeditor.load() }}
 {{ ckeditor.config(name='body') }}
 
 
 
 <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        {% if request.path == url_for('contactpage') %}
+        <div class="container" style="padding-left: 18px;">
+            {% else %}
+            <div class="container">
+                {% endif %}
+                <a class="navbar-brand" href="{{url_for('homepage')}}">
+                    <img src="/static/images/portfolio_logo_purple.svg" alt="Portfolio Logo" width="40" height="40">
+                </a>
+                {% if request.path != url_for('contactpage') %}
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                {% endif %}
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        {% if request.path != url_for('contactpage') and request.path != url_for('add_article_page') and
+                        request.path != url_for('edit_article_form_page', article_id=article.id)%}
+                        <li class="nav-item">
+                            <a class="nav-link me-sm-3" href="{{url_for('blogpage')}}"
+                                style="color: #000000;">Articles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link me-sm-3" href="#" style="color: #000000;">Download Resume</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link code-btn" href="{{url_for('contactpage')}}" id="say-hello">Say Hello</a>
+                        </li>
+                    </ul>
+                    {% endif %}
+                </div>
+                {% if request.path == url_for('contactpage') or request.path == url_for('add_article_page') or
+                request.path == url_for('edit_article_form_page', article_id=article.id)%}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="{{url_for('edit_article_page')}}" class="nav-link exit-icon"
+                            style="cursor: pointer;"><img src="/static/images/exit.svg" alt="exit icon" width="35"
+                                height="35"></a>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+    </nav>
+
+
+
     <div id="add-article-cont" class="container-fluid">
         <div class="row justify-content-center">
             {% for message in get_flashed_messages() %}

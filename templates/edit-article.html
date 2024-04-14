@@ -8,7 +8,7 @@
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 g-3">
                     {% for article in articles %}
-                    <div class="col  slide-in active">
+                    <div id="article-card-height" class="col  slide-in active">
                         <a href="{{url_for('edit_article_form_page', article_id = article.id)}}" class="card-link">
                             <div id="article-card" class="card shadow-sm">
                                 <img src="{{article.img_url}}" class="bd-placeholder-img card-img-top"
@@ -20,10 +20,16 @@
                                         </p>
                                         <p class="card-text">{{article.subtitle}}</p>
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
+                                    <div id="edit-delete" class="d-flex justify-content-between align-items-center">
+                                        <div id="edit-delete-btns" class="btn-group">
                                             <button id="readmore-article-btn" type="button"
                                                 class="btn btn-sm code-font">Edit Article</button>
+
+                                            <button id="delete-article-btn" style="margin-left: 10px;" type="button"
+                                                class="btn btn-sm code-font" data-article-id="{{ article.id }}">Delete
+                                                Article</button>
+
+
 
                                         </div>
                                         <small id="article-date" class="text-body-secondary">{{article.date}}</small>
@@ -41,6 +47,15 @@
 
     {%include "admin.html"%}
 
+
+    <script>
+
+        document.getElementById('delete-article-btn').addEventListener('click', function () {
+            var articleId = this.getAttribute('data-article-id');
+            deleteArticle(articleId);
+        });
+
+    </script>
 
 
 </body>

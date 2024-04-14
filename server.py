@@ -175,6 +175,18 @@ def edit_article_form_page(article_id):
     return render_template('edit-article-form.html', form=edit_article_form, article=article, article_id=article.id)
 
 
+@app.route('/delete-article/<article_id>', methods=['GET', 'POST'])
+def delete_article(article_id):
+    article = Article.query.filter(Article.id == article_id).one()
+
+    if request.method == 'POST':
+        db.session.delete(article)
+        db.session.commit()
+        flash("Article Deleted Successfully", "post_deleted")
+        return redirect(url_for('edit_article_page'))
+        
+
+
 
 
 

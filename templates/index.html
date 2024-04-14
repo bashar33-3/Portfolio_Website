@@ -240,7 +240,7 @@
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 g-3">
                     {% for article in articles %}
-                    <div class="col">
+                    <div id="article-card-height" class="col slide-in">
                         <a href="{{url_for('single_article_page', article_id = article.id)}}" class="card-link">
                             <div id="article-card" class="card shadow-sm">
                                 <img src="{{article.img_url}}" class="bd-placeholder-img card-img-top"

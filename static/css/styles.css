@@ -4,8 +4,13 @@
     font-weight: bold;
 }
 
+#article-card-height {
+    height: 525px;
+}
+
+
 .card-text {
-    max-height: 100px;
+    max-height: 110px;
     /* Adjust the height as needed */
     overflow-y: auto;
     /* Add scrollbar if content exceeds the specified height */
@@ -15,7 +20,8 @@
 
 
 
-#readmore-article-btn {
+#readmore-article-btn,
+#delete-article-btn {
     background-color: #712cf9;
     color: white;
     align-self: flex-end;
@@ -40,7 +46,7 @@
 #article-card {
     display: flex;
     flex-direction: column;
-    height: 460px;
+    height: 100%;
     /* Adjust the height as needed */
     transition: transform 0.3s ease;
     /* Add transition for smooth scaling */
@@ -439,6 +445,10 @@ header {
 }
 
 @media (max-width: 1400px) {
+    #article-date {
+        display: none;
+    }
+
     .aboutme .container {
         margin-top: 0 !important;
         max-height: 400px;
@@ -457,6 +467,9 @@ header {
 }
 
 @media (max-width: 1300px) {
+    #article-date {
+        display: none;
+    }
 
 
     #article-single-title {
@@ -534,10 +547,12 @@ header {
 }
 
 @media (max-width: 800px) {
+
     .row.mb-3 {
         flex-direction: column;
     }
 }
+
 
 
 @media (max-width: 700px) {
@@ -564,6 +579,32 @@ header {
 }
 
 @media (max-width: 500px) {
+    #edit-delete {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        /* Align items vertically centered */
+    }
+
+    #edit-delete-btns {
+        display: flex !important;
+        flex-direction: row !important;
+    }
+
+    #edit-delete-btns button {
+        border-radius: 3px;
+        outline: 0;
+        border: 0;
+        padding: 5px 10px;
+        margin: 2px 0;
+    }
+
+    /* Apply margin to the second button for space */
+    #edit-delete-btns button:nth-child(2) {
+        margin-left: auto;
+        /* Push the button to the right */
+    }
+
 
 
     .skills.slide-in {
@@ -588,6 +629,38 @@ header {
 }
 
 @media (max-width: 400px) {
+
+    #edit-delete {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        /* Align items vertically centered */
+    }
+
+    #edit-delete-btns {
+        display: flex !important;
+        flex-direction: row !important;
+    }
+
+    #edit-delete-btns button {
+        border-radius: 3px;
+        outline: 0;
+        border: 0;
+        padding: 5px 10px;
+        margin: 2px 0;
+    }
+
+    /* Apply margin to the second button for space */
+    #edit-delete-btns button:nth-child(2) {
+        margin-left: auto;
+        /* Push the button to the right */
+    }
+
+    #article-date {
+        display: none;
+    }
+
+
 
     #download-resume-btn {
         padding: 8px 16px;

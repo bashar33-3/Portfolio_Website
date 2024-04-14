@@ -32,11 +32,18 @@
                     </ul>
                     {% endif %}
                 </div>
-                {% if request.path == url_for('contactpage') or request.path == url_for('add_article_page') %}
+                {% if request.path == url_for('contactpage')%}
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link exit-icon" style="cursor: pointer;"><img src="/static/images/exit.svg"
                                 alt="exit icon" width="35" height="35"></a>
+                    </li>
+                </ul>
+                {%elif request.path == url_for('add_article_page')%}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="{{url_for('blogpage')}}" class="nav-link" style="cursor: pointer;"><img
+                                src="/static/images/exit.svg" alt="exit icon" width="35" height="35"></a>
                     </li>
                 </ul>
                 {% endif %}
