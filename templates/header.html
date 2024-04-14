@@ -18,7 +18,7 @@
                 {% endif %}
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        {% if request.path != url_for('contactpage') and request.path != url_for('add_article_page') %}
+                        {% if request.path != url_for('contactpage') and request.path != url_for('add_article_page')%}
                         <li class="nav-item">
                             <a class="nav-link me-sm-3" href="{{url_for('blogpage')}}"
                                 style="color: #000000;">Articles</a>

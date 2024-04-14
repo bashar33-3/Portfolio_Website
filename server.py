@@ -79,6 +79,7 @@ class CreatePostForm(FlaskForm):
     img_url    = StringField("Article IMG URL", validators=[DataRequired()])
     body     = CKEditorField("Body", validators=[DataRequired()])
     submit   = SubmitField("Submit")
+    submit_edit = SubmitField("Submit")
 
 
 # Functions
@@ -147,6 +148,32 @@ def add_article_page():
             return redirect(url_for('add_article_page'))
 
     return render_template("add-article.html", form=add_article_form)
+
+
+@app.route('/edit-article', methods=['GET', 'POST'])
+def edit_article_page():
+    articles = Article.query.all()
+    return render_template("edit-article.html", articles = articles)
+
+
+@app.route('/edit-article-form/<article_id>', methods=['GET', 'POST'])
+def edit_article_form_page(article_id):
+    article = Article.query.filter(Article.id == article_id).one()
+    edit_article_form = CreatePostForm(title=article.title, subtitle=article.subtitle, img_url=article.img_url, body=article.body) 
+
+    if edit_article_form.validate_on_submit():
+        if request.method == 'POST':
+            article.title = request.form['title']
+            article.subtitle = request.form['subtitle']
+            article.img_url = request.form['img_url']
+            article.body = request.form['body']
+            article.date = article.date
+            db.session.commit()
+            flash("Article Edited Successfully", "post_edited")
+            return redirect(url_for('edit_article_form_page', article_id=article.id))
+        
+    return render_template('edit-article-form.html', form=edit_article_form, article=article, article_id=article.id)
+
 
 
 
