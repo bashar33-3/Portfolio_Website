@@ -179,11 +179,13 @@ def edit_article_form_page(article_id):
 def delete_article(article_id):
     article = Article.query.filter(Article.id == article_id).one()
 
-    if request.method == 'POST':
+    if article:
         db.session.delete(article)
         db.session.commit()
         flash("Article Deleted Successfully", "post_deleted")
         return redirect(url_for('edit_article_page'))
+    
+    return jsonify(error= 'Article Not Found'), 404
         
 
 

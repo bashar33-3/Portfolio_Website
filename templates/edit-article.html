@@ -9,34 +9,43 @@
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 g-3">
                     {% for article in articles %}
                     <div id="article-card-height" class="col  slide-in active">
-                        <a href="{{url_for('edit_article_form_page', article_id = article.id)}}" class="card-link">
-                            <div id="article-card" class="card shadow-sm">
+                        <!-- <a href="{{url_for('edit_article_form_page', article_id = article.id)}}" class="card-link"> -->
+                        <div id="article-card" class="card shadow-sm">
+                            <a href="{{url_for('single_article_page', article_id = article.id)}}">
                                 <img src="{{article.img_url}}" class="bd-placeholder-img card-img-top"
                                     style="object-fit: cover;" width="100%" height="225" role="img"
                                     aria-label="Placeholder: Thumbnail" alt="Placeholder image">
-                                <div class="card-body d-flex flex-column justify-content-between">
-                                    <div>
-                                        <p class="card-title fs-5 fs-md-4 fs-sm-3" id="article-title">{{article.title}}
-                                        </p>
-                                        <p class="card-text">{{article.subtitle}}</p>
-                                    </div>
-                                    <div id="edit-delete" class="d-flex justify-content-between align-items-center">
-                                        <div id="edit-delete-btns" class="btn-group">
-                                            <button id="readmore-article-btn" type="button"
-                                                class="btn btn-sm code-font">Edit Article</button>
+                            </a>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <p class="card-title fs-5 fs-md-4 fs-sm-3" id="article-title">{{article.title}}
+                                    </p>
+                                    <p class="card-text">{{article.subtitle}}</p>
+                                </div>
+                                <div id="edit-delete" class="d-flex justify-content-between align-items-center">
+                                    <div id="edit-delete-btns" class="btn-group">
+                                        <a id="readmore-article-btn" type="button" class="btn btn-sm code-font"
+                                            href="{{url_for('edit_article_form_page', article_id = article.id)}}">Edit
+                                            Article</a>
+                                        <a id="delete-article-btn" type="button" class="btn btn-sm code-font"
+                                            href="{{url_for('delete_article', article_id = article.id)}}">Delete
+                                            Article</a>
 
+                                        <!-- 
+                                            <button id="readmore-article-btn" type="button"
+                                                class="btn btn-sm code-font" data-article-id="{{ article.id }}">Edit
+                                                Article</button>
                                             <button id="delete-article-btn" style="margin-left: 10px;" type="button"
                                                 class="btn btn-sm code-font" data-article-id="{{ article.id }}">Delete
-                                                Article</button>
+                                                Article</button> -->
 
 
 
-                                        </div>
-                                        <small id="article-date" class="text-body-secondary">{{article.date}}</small>
                                     </div>
+                                    <small id="article-date" class="text-body-secondary">{{article.date}}</small>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>

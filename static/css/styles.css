@@ -31,6 +31,10 @@
     /* Ensure button width fits its content */
 }
 
+#readmore-article-btn {
+    margin-right: 10px;
+}
+
 .card-body {
     flex-grow: 1;
     flex-direction: column;
