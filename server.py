@@ -31,6 +31,9 @@ app = Flask(__name__)
 
 
 
+
+
+
 ### SQL Alchemy Database Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
 ### Database Tables Initialization
@@ -68,6 +71,14 @@ class ContactForm(FlaskForm):
     email = EmailField("Email", validators=[DataRequired(), Email(message='Please Enter a Valid Email Address')])
     message = TextAreaField("Message", validators=[DataRequired()])
     submit = SubmitField("Submit")
+
+
+class CreatePostForm(FlaskForm):
+    title    = StringField("Article Title", validators=[DataRequired()])
+    subtitle = StringField("Article Subtitle", validators=[DataRequired()])
+    img_url    = StringField("Article IMG URL", validators=[DataRequired()])
+    body     = CKEditorField("Body", validators=[DataRequired()])
+    submit   = SubmitField("Submit")
 
 
 # Functions
@@ -111,12 +122,31 @@ def contactpage():
     return render_template("contact.html", contact_form=contact_form)
 
 
+
 @app.route('/articles/<article_id>')
 def single_article_page(article_id):
     recent_articles = Article.query.order_by(Article.id.desc()).limit(6).all()
     article = Article.query.filter(Article.id == article_id).one()
     return render_template("article.html", article=article, recent_articles=recent_articles)
 
+@app.route('/add-article', methods=['GET', 'POST'])
+def add_article_page():
+    add_article_form = CreatePostForm()
+    today_date = dt.datetime.today().strftime('%B %d, %Y')
+
+    if add_article_form.validate_on_submit():
+        if request.method == 'POST':
+            title = request.form['title']
+            subtitle = request.form['subtitle']
+            img_url = request.form['img_url']
+            body = add_article_form.body.data
+            new_article = Article(title=title, subtitle=subtitle, img_url=img_url, body=body, date=today_date)
+            db.session.add(new_article)
+            db.session.commit()
+            flash("Article Added Successfully", "post_added")
+            return redirect(url_for('add_article_page'))
+
+    return render_template("add-article.html", form=add_article_form)
 
 
 

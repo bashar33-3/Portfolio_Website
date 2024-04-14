@@ -35,7 +35,7 @@
                         <div class="blog_details mt-5">
                             <h3 class="mb-3">{{article.subtitle}}</h3>
                             <p class="excert mb-5">
-                                {{article.body}}
+                                {{article.body|safe}}
                             </p>
                             <p>Posted on {{article.date}}</p>
                         </div>
