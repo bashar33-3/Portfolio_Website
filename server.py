@@ -93,8 +93,9 @@ class CreatePostForm(FlaskForm):
 
 
 class AddProjectForm(FlaskForm):
-    excerpt     = StringField("Project Except/Description", validators=[DataRequired()])
+    excerpt     = StringField("Project Excerpt/Description", validators=[DataRequired()])
     image       = FileField("Project Featured Image", validators=[DataRequired()])
+    img_url_edit    = FileField("Article Featured Image")
     web_url     = StringField("Project URL", validators=[DataRequired()])
     submit      = SubmitField("Submit")
 
@@ -263,6 +264,32 @@ def delete_project(project_id):
     
     return jsonify(error= 'Project Not Found'), 404
 
+@app.route('/edit-project-form/<project_id>', methods=['GET', 'POST'])
+def edit_project_form_page(project_id):
+    project = Project.query.filter(Project.id == project_id).one()
+    edit_project_form = AddProjectForm(excerpt=project.excerpt, image=project.img_url, web_url=project.web_url) 
+
+    if edit_project_form.validate_on_submit():
+        if request.method == 'POST':
+
+            image_file = request.files['img_url_edit']
+            if image_file:
+                filename = secure_filename(image_file.filename)
+                path = f'static/images/uploads/{filename}'
+                image_file.save(path)
+                project.img_url = path
+            else:
+                project.img_url = project.img_url
+
+
+            project.excerpt = request.form['excerpt']
+            project.web_url = request.form['web_url']
+
+            db.session.commit()
+            flash("Project Edited Successfully", "project_edited")
+            return redirect(url_for('edit_project_form_page', project_id=project.id))
+        
+    return render_template('edit_project_form.html', form=edit_project_form, project=project, project_id=project.id)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
