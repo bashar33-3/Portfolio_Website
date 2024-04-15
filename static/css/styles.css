@@ -501,7 +501,20 @@ header {
     }
 }
 
+#signup-msg {
+    font-size: 2em;
+}
+
 @media (max-width: 1000px) {
+    #signup-msg {
+        font-size: 1.3em;
+    }
+
+    #signup-img {
+        max-width: 100px !important;
+        height: 100px !important;
+    }
+
     #add-article-cont {
         margin-top: 10vh;
     }
@@ -550,12 +563,20 @@ header {
     }
 }
 
+#signup-img {
+    max-width: 150px;
+    height: 150px;
+}
+
+
 @media (max-width: 800px) {
 
     .row.mb-3 {
         flex-direction: column;
     }
+
 }
+
 
 
 

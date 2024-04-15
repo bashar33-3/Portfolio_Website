@@ -1,0 +1,50 @@
+{% include 'head.html' %}
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container" style="flex-direction: row-reverse;">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a id="login-nav" href="{{ url_for('blogpage') }}" class="nav-link"
+                        style="cursor: pointer; font-weight: 500; color: black;">Log In</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container d-flex align-items-center justify-content-center"
+        style="height: 90vh; flex-direction: column; margin-top: 7vh;">
+        <!-- Avatar Image -->
+        <div class="text-center position-relative">
+            <img id="signup-img" src="/static/images/portfolio_logo_purple.svg" alt="Avatar" class="img-fluid mb-2"
+                style="margin-top: 10px;">
+            <p id="signup-msg" class="mb-4 code-font fw-bold">Welcome to our Community!</p>
+        </div>
+        <!-- Form -->
+        <form id="signupform" action="{{ url_for('admin_signup_page') }}" method="post" style="min-width: 50%;">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                <div>
+                    {{ form.name.label(class="form-label fw-bold") }}
+                    {{ form.name(class="form-control form-control-lg mb-3") }}
+                </div>
+                <div>
+                    {{ form.email.label(class="form-label fw-bold") }}
+                    {{ form.email(class="form-control form-control-lg") }}
+                </div>
+            </div>
+            <div class="mb-3">
+                {{ form.password.label(class="form-label fw-bold") }}
+                {{ form.password(class="form-control form-control-lg mb-3") }}
+            </div>
+            <div class="mb-3">
+                {{ form.repeat_password.label(class="form-label fw-bold") }}
+                {{ form.repeat_password(class="form-control form-control-lg") }}
+                {% for error in form.repeat_password.errors %}
+                <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+            {{ form.submit(id='contactsubmit-btn', class='btn btn-primary btn-lg mb-5 mt-3') }}
+        </form>
+    </div>
+</body>

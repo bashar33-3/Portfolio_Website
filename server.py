@@ -104,7 +104,17 @@ class AddProjectForm(FlaskForm):
     web_url     = StringField("Project URL", validators=[DataRequired()])
     submit      = SubmitField("Submit")
 
+class SignUpForm(FlaskForm):
+    name = StringField("Name", validators=[DataRequired(), Length(min=3, max=25, message="Name should be between %(min)d and %(max)d characters long")])
+    email = EmailField("Email", validators=[DataRequired(), Email(message='Please Enter a Valid Email Address')])
+    password = PasswordField("Password", validators=[DataRequired(), EqualTo('repeat_password', message="Passwords must match!")])
+    repeat_password = PasswordField("Repeat Password", validators=[DataRequired(), EqualTo('password', message="Passwords must match, please try again.")])
+    submit = SubmitField("Sign Up")
 
+class LoginForm(FlaskForm):
+    email    = EmailField("Email", validators=[DataRequired(), Email(message='Please Enter a Valid Email Address')])
+    password = PasswordField("Password", validators=[DataRequired()])
+    submit2  = SubmitField('Log In')
 
 # Functions
 # Sending email function
@@ -334,6 +344,27 @@ def edit_project_form_page(project_id):
             return redirect(url_for('edit_project_form_page', project_id=project.id))
         
     return render_template('edit_project_form.html', form=edit_project_form, project=project, project_id=project.id)
+
+@app.route('/admin-signup', methods=["GET", "POST"])
+def admin_signup_page():
+    form = SignUpForm()
+    if form.validate_on_submit():
+        if request.method == "POST":
+            encrypted_password = encrypt_password(form.password.data)
+            
+            user = User(
+                name= form.name.data,
+                email= form.email.data,
+                password= encrypted_password,
+                admin = False
+            )
+
+            db.session.add(user)
+            db.session.commit()
+
+            
+            return redirect(url_for('admin_signup_page'))
+    return render_template('admin_signup.html', form=form)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
