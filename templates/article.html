@@ -30,7 +30,7 @@
                 <div class="col-lg-8 posts-list">
                     <div class="single-post slide-in active">
                         <div class="feature-img">
-                            <img class="img-fluid" src="{{article.img_url}}" alt="">
+                            <img class="img-fluid" src="{{ '/' ~ article.img_url }}" alt="">
                         </div>
                         <div class="blog_details mt-5">
                             <h3 class="mb-3">{{article.subtitle}}</h3>
@@ -51,7 +51,7 @@
                             <h3 class="widget_title title-with-line" style="font-size: 20px;">Recent Articles</h3>
                             {% for recent_article in recent_articles %}
                             <div class="media post_item d-flex mb-3 recent-article">
-                                <img src="{{ recent_article.img_url }}" alt="post" width="50" height="50"
+                                <img src="{{'/' ~ recent_article.img_url }}" alt="post" width="50" height="50"
                                     style="flex-shrink: 0;">
                                 <div class="media-body"
                                     style="margin-left: 10px; display: flex; flex-direction: column; justify-content: center;">
@@ -87,8 +87,7 @@
     </section>
 
 
-    </section>
-
+    {%include "admin.html"%}
 
 </body>
 

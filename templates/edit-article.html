@@ -3,9 +3,18 @@
 
 <body>
 
-    <section class="blog slide-in active" style="margin-top: 50px;">
+    <section class="blog slide-in active" style="margin-top: 70px;">
         <div class="album py-5">
             <div class="container">
+                {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning alert-dismissible fade show col-md-12 col-lg-12 mb-4" role="alert"
+                    style="background-color: #712cf9; color: white;">
+                    <strong>{{ message }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                        style="color: white; background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 16 16\' fill=\'%23ffffff\'%3E%3Cpath d=\'M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z\'/%3E%3C/svg%3E');"
+                        aria-label="Close"></button>
+                </div>
+                {% endfor %}
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 g-3">
                     {% for article in articles %}
                     <div id="article-card-height" class="col  slide-in active">
@@ -27,7 +36,7 @@
                                         <a id="readmore-article-btn" type="button" class="btn btn-sm code-font"
                                             href="{{url_for('edit_article_form_page', article_id = article.id)}}">Edit
                                             Article</a>
-                                        <a id="delete-article-btn" type="button" class="btn btn-sm code-font"
+                                        <a id="" type="button" class="btn btn-danger btn-sm code-font"
                                             href="{{url_for('delete_article', article_id = article.id)}}">Delete
                                             Article</a>
 

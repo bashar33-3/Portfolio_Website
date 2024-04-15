@@ -161,16 +161,18 @@
 
         <div class="container" style="margin-top: 100px;">
             <div class="row">
+
+                {%for project in projects%}
                 <div class="col-md-6 col-lg-4">
                     <div class="custom-card mb-4">
                         <div class="custom-card-img-top">
-                            <img src="/static/images/mywork1.jpg" alt="Project Image" class="img-fluid">
+                            <img src="{{project.img_url}}" alt="Project Image" class="img-fluid">
                         </div>
                         <div class="custom-card-overlay">
                             <div class="custom-card-body">
-                                <h5 class="card-title fw-bold fs-5 fs-md-5" style="max-width: 300px;">High-end, custom
-                                    residential renovators serving Fraser Valley homeowners.</h5>
-                                <a href="https://wfdesignbuild.com" target="_blank"
+                                <h5 class="card-title fw-bold fs-5 fs-md-5" style="max-width: 300px;">
+                                    {{project.excerpt}}</h5>
+                                <a href="{{project.web_url}}" target="_blank"
                                     class="btn px-3 me-sm-3 mt-3 code-font code-btn" style="color: white;">Visit Website
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
                                         class="bi bi-triangle" viewBox="0 0 16 16" style="fill: white;">
@@ -181,49 +183,9 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="custom-card mb-4">
-                        <div class="custom-card-img-top">
-                            <img src="/static/images/mywork1.jpg" alt="Project Image" class="img-fluid">
-                        </div>
-                        <div class="custom-card-overlay">
-                            <div class="custom-card-body">
-                                <h5 class="card-title fw-bold fs-5 fs-md-5" style="max-width: 300px;">High-end, custom
-                                    residential renovators serving Fraser Valley homeowners.</h5>
-                                <a href="https://wfdesignbuild.com" target="_blank"
-                                    class="btn px-3 me-sm-3 mt-3 code-font code-btn" style="color: white;">Visit Website
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
-                                        class="bi bi-triangle" viewBox="0 0 16 16" style="fill: white;">
-                                        <path
-                                            d="M12.354 8.354a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L10.293 8l-3.647 3.646a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708z" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="custom-card mb-4">
-                        <div class="custom-card-img-top">
-                            <img src="/static/images/mywork1.jpg" alt="Project Image" class="img-fluid">
-                        </div>
-                        <div class="custom-card-overlay">
-                            <div class="custom-card-body">
-                                <h5 class="card-title fw-bold fs-5 fs-md-5" style="max-width: 300px;">High-end, custom
-                                    residential renovators serving Fraser Valley homeowners.</h5>
-                                <a href="https://wfdesignbuild.com" target="_blank"
-                                    class="btn px-3 me-sm-3 mt-3 code-font code-btn" style="color: white;">Visit Website
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
-                                        class="bi bi-triangle" viewBox="0 0 16 16" style="fill: white;">
-                                        <path
-                                            d="M12.354 8.354a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L10.293 8l-3.647 3.646a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708z" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {%endfor%}
             </div>
         </div>
     </section>

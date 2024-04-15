@@ -15,16 +15,15 @@
                 <a class="navbar-brand" href="{{url_for('homepage')}}">
                     <img src="/static/images/portfolio_logo_purple.svg" alt="Portfolio Logo" width="40" height="40">
                 </a>
-                {% if request.path != url_for('contactpage') %}
+                {% if request.path != url_for('contactpage') and request.path != url_for('add_article_page') and
+                request.path != url_for('edit_article_form_page', article_id=article.id)%}
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                {% endif %}
+
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        {% if request.path != url_for('contactpage') and request.path != url_for('add_article_page') and
-                        request.path != url_for('edit_article_form_page', article_id=article.id)%}
                         <li class="nav-item">
                             <a class="nav-link me-sm-3" href="{{url_for('blogpage')}}"
                                 style="color: #000000;">Articles</a>
@@ -37,17 +36,30 @@
                         </li>
                     </ul>
                     {% endif %}
+                    {% if request.path == url_for('contactpage')%}
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="{{url_for('edit_article_page')}}" class="nav-link exit-icon"
+                                style="cursor: pointer;"><img src="/static/images/exit.svg" alt="exit icon" width="35"
+                                    height="35"></a>
+                        </li>
+                    </ul>
+                    {%elif request.path == url_for('add_article_page')%}
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="{{url_for('blogpage')}}" class="nav-link" style="cursor: pointer;"><img
+                                    src="/static/images/exit.svg" alt="exit icon" width="35" height="35"></a>
+                        </li>
+                    </ul>
+                    {%elif request.path == url_for('edit_article_form_page', article_id=article.id)%}
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="{{url_for('edit_article_page')}}" class="nav-link" style="cursor: pointer;"><img
+                                    src="/static/images/exit.svg" alt="exit icon" width="35" height="35"></a>
+                        </li>
+                    </ul>
+                    {% endif %}
                 </div>
-                {% if request.path == url_for('contactpage') or request.path == url_for('add_article_page') or
-                request.path == url_for('edit_article_form_page', article_id=article.id)%}
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a href="{{url_for('edit_article_page')}}" class="nav-link exit-icon"
-                            style="cursor: pointer;"><img src="/static/images/exit.svg" alt="exit icon" width="35"
-                                height="35"></a>
-                    </li>
-                </ul>
-                {% endif %}
             </div>
     </nav>
 
@@ -65,7 +77,8 @@
             </div>
             {% endfor %}
             <form id="add-article-form" method="POST"
-                action="{{ url_for('edit_article_form_page', article_id = article.id) }}" class="col-md-8 col-lg-8">
+                action="{{ url_for('edit_article_form_page', article_id = article.id) }}" class="col-md-8 col-lg-8"
+                enctype="multipart/form-data">
                 <div>
                     {{ form.hidden_tag() }}
                     <div class="mb-3">
@@ -76,9 +89,11 @@
                         {{ form.subtitle.label(class="form-label fw-bold") }}
                         {{ form.subtitle(class="form-control form-control-lg") }}
                     </div>
-                    <div class="mb-3">
-                        {{ form.img_url.label(class="form-label fw-bold") }}
-                        {{ form.img_url(class="form-control form-control-lg") }}
+                    <div class="mb-3 d-flex flex-column">
+                        {{ form.img_url_edit.label(class="form-label fw-bold") }}
+                        <img src="{{ '/' ~ article.img_url }}" alt="Current Image" class="img-fluid mb-2"
+                            style="width: 50%;">
+                        {{ form.img_url_edit(class="form-control form-control-lg") }}
                     </div>
                     <div class="mb-3">
                         {{ form.body.label(class="form-label fw-bold") }}
@@ -90,5 +105,6 @@
         </div>
     </div>
 
+    {%include "admin.html"%}
 
 </body>
