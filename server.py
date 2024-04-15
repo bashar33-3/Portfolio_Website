@@ -27,6 +27,8 @@ from dateutil import parser as date_parser
 import smtplib
 
 from werkzeug.utils import secure_filename
+from functools import wraps
+
 
 app = Flask(__name__)
 
@@ -59,16 +61,19 @@ class Project(db.Model):
     img_url: Mapped[str] = mapped_column(String, nullable=False)
     web_url: Mapped[str] = mapped_column(String, nullable=False)
 
+class User(db.Model, UserMixin):
+    __tablename__ = "users"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String, nullable=False)
+    email: Mapped[str] = mapped_column(String, nullable=False)
+    password: Mapped[str] = mapped_column(String, nullable=False)
+    admin: Mapped[bool] = mapped_column(Boolean, default=False) 
+
+    def is_admin(self):
+        return self.admin
+
 with app.app_context():
     db.create_all()
-    # article3 = Article(title='Embrace the Fun: Exploring the Joy of Learning CSS and HTML',
-    #                    subtitle=" Embarking on a Journey of Creativity and Expression: Unveiling the Joy of Learning HTML and CSS",
-    #                    date = '4/13/2024',
-    #                    body= "HTML serves as the skeleton of web pages, defining the structure and content. With its simple yet powerful tags, you can create headings, paragraphs, lists, images, and more. It's the blueprint upon which the web is built, providing the foundation for everything you see and interact with online.",
-    #                    img_url= 'https://img.freepik.com/free-vector/programmers-concept-with-flat-design_23-2147852753.jpg?t=st=1712997608~exp=1713001208~hmac=0c830db79897932dd53924a29dd4ace0208deb0641d99c5824e5de67ffa9959e&w=826')
-    # db.session.add(article3)
-    # db.session.commit()
-
 
 
 ### Forms
@@ -116,6 +121,45 @@ def send_mail(name, email, message):
                         to_addrs=EMAIL,
                         msg=f"Subject:Portfolio New Message\n\nName:{name}\nEmail: {email}\nMessage:{message}")
 
+# Password Encryption Function
+            
+def encrypt_password(password):
+    # Convert the password string to bytes
+    password_bytes = password.encode('utf-8')
+    # Create a SHA-256 hash object
+    sha256_hash = hashlib.sha256()
+    # Update the hash object with the password bytes
+    sha256_hash.update(password_bytes)
+    # Get the hexadecimal representation of the digest (hashed value)
+    encrypted_password = sha256_hash.hexdigest()
+    return encrypted_password
+
+
+#Admin Login 
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.session_protection = 'strong'
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    user = db.session.get(User, user_id)
+    return user
+
+@app.route('/logout', methods=["GET", "POST"])
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+
+def admin_only(func):
+    @wraps(func)
+    def decorated_func(*args, **kwargs):
+        if not current_user.is_authenticated or not current_user.is_admin():
+            abort(403)
+        return func(*args, **kwargs)
+    return decorated_func
+            
 
 
 @app.route("/")
