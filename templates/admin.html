@@ -2,7 +2,7 @@
 
 
 <body>
-    {%if current_user.is_authenticated and current_user.is_admin%}
+    {% if current_user.is_authenticated and current_user.is_admin()%}
     <div class="admin">
         <div>
             <a href="{{url_for('add_article_page')}}"><button class="add-article">Add Article</button></a>
@@ -20,5 +20,6 @@
             <a href="{{url_for('logout')}}"><button class="logout-admin">Log Out</button></a>
         </div>
     </div>
+
     {%endif%}
 </body>

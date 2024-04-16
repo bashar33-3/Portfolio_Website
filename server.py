@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, url_for, jsonify, flash, abo
 # SQL Alchemy imports 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String, Boolean, ForeignKey
+from sqlalchemy import Integer, String, Boolean, ForeignKey, func
 from sqlalchemy.exc import NoResultFound
 
 # Flask Login imports
@@ -364,6 +364,22 @@ def admin_signup_page():
                 flash('Email Already Exists', "email_error")
 
             except NoResultFound:
+                #if database is new first sign up is admin by default 
+                if db.session.query(func.count(User.id)).scalar() == 0:
+                    encrypted_password = encrypt_password(form.password.data)
+
+                    user = User(
+                        name= form.name.data,
+                        email= form.email.data,
+                        password= encrypted_password,
+                        admin = True
+                    )
+
+                    db.session.add(user)
+                    db.session.commit()
+                    flash("Sign Up Complete", "signup_success")
+                    return redirect(url_for('admin_login_page'))
+                else:
                     encrypted_password = encrypt_password(form.password.data)
 
                     user = User(
@@ -376,7 +392,8 @@ def admin_signup_page():
                     db.session.add(user)
                     db.session.commit()
                     flash("Sign Up Complete", "signup_success")
-                    return redirect(url_for('admin_signup_page'))
+                    return redirect(url_for('admin_login_page'))
+
             
     return render_template('admin_signup.html', form=form)
 
@@ -388,12 +405,16 @@ def admin_login_page():
         if request.method == "POST":
             try:
                 user = User.query.filter(User.email == form.email.data).one()
-                if user.password == encrypt_password(form.password.data):
+                if user.password == encrypt_password(form.password.data) and user.admin:
                     login_user(user)
+                    
                     return redirect(url_for('homepage'))
-                else:
+                elif user.password != encrypt_password(form.password.data):
                     flash("Password is wrong, please try again.", "password_error")
-                    redirect(url_for('admin_login_page'))
+
+                else:
+                    flash("You are not authorized to login.", "admin_error")
+        
             
             except NoResultFound:
                 flash("This Email is not registered", "email_error")
@@ -401,7 +422,6 @@ def admin_login_page():
 
             
     return render_template('admin_login.html', form=form)
-
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
