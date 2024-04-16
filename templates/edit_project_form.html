@@ -4,46 +4,42 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-        {% if request.path == url_for('contactpage') %}
-        <div class="container" style="padding-left: 18px;">
-            {% else %}
-            <div class="container">
-                {% endif %}
-                <a class="navbar-brand" href="{{url_for('homepage')}}">
-                    <img src="/static/images/portfolio_logo_purple.svg" alt="Portfolio Logo" width="40" height="40">
-                </a>
-                {% if request.path != url_for('contactpage') and request.path != url_for('add_article_page') and
-                request.path !=
-                url_for('edit_project_form_page', project_id=project.id)%}
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <div class="container" style="padding-left: 5px;">
 
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link me-sm-3" href="{{url_for('blogpage')}}"
-                                style="color: #000000;">Articles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link me-sm-3" href="#" style="color: #000000;">Download Resume</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link code-btn" href="{{url_for('contactpage')}}" id="say-hello">Say Hello</a>
-                        </li>
-                    </ul>
-                    {% endif %}
-                    {%if request.path == url_for('edit_project_form_page', project_id=project.id)%}
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="{{url_for('edit_project_page')}}" class="nav-link" style="cursor: pointer;"><img
-                                    src="/static/images/exit.svg" alt="exit icon" width="35" height="35"></a>
-                        </li>
-                    </ul>
-                    {% endif %}
-                </div>
+            <a class="navbar-brand" href="{{url_for('homepage')}}">
+                <img src="/static/images/portfolio_logo_purple.svg" alt="Portfolio Logo" width="40" height="40">
+            </a>
+            {% if request.path != url_for('contactpage') and request.path != url_for('add_article_page') and
+            request.path !=
+            url_for('edit_project_form_page', project_id=project.id)%}
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link me-sm-3" href="{{url_for('blogpage')}}" style="color: #000000;">Articles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-sm-3" href="#" style="color: #000000;">Download Resume</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link code-btn" href="{{url_for('contactpage')}}" id="say-hello">Say Hello</a>
+                    </li>
+                </ul>
+                {% endif %}
+                {%if request.path == url_for('edit_project_form_page', project_id=project.id)%}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="{{url_for('edit_project_page')}}" class="nav-link" style="cursor: pointer;"><img
+                                src="/static/images/exit.svg" alt="exit icon" width="35" height="35"></a>
+                    </li>
+                </ul>
+                {% endif %}
             </div>
+        </div>
     </nav>
 
 

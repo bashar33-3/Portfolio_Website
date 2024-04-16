@@ -114,7 +114,7 @@ class SignUpForm(FlaskForm):
 class LoginForm(FlaskForm):
     email    = EmailField("Email", validators=[DataRequired(), Email(message='Please Enter a Valid Email Address')])
     password = PasswordField("Password", validators=[DataRequired()])
-    submit2  = SubmitField('Log In')
+    submit   = SubmitField('Log In')
 
 # Functions
 # Sending email function
@@ -151,6 +151,7 @@ login_manager.init_app(app)
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'login'
 
+
 @login_manager.user_loader
 def load_user(user_id):
     user = db.session.get(User, user_id)
@@ -159,14 +160,14 @@ def load_user(user_id):
 @app.route('/logout', methods=["GET", "POST"])
 def logout():
     logout_user()
-    return redirect(url_for('login'))
+    return redirect(url_for('homepage'))
 
 
 def admin_only(func):
     @wraps(func)
     def decorated_func(*args, **kwargs):
-        if not current_user.is_authenticated or not current_user.is_admin():
-            abort(403)
+        if not current_user.is_authenticated or not current_user.is_admin:
+            return redirect(url_for("admin_login_page"))
         return func(*args, **kwargs)
     return decorated_func
             
@@ -205,6 +206,7 @@ def single_article_page(article_id):
     return render_template("article.html", article=article, recent_articles=recent_articles)
 
 @app.route('/add-article', methods=['GET', 'POST'])
+@admin_only
 def add_article_page():
     add_article_form = CreatePostForm()
     today_date = dt.datetime.today().strftime('%B %d, %Y')
@@ -232,12 +234,14 @@ def add_article_page():
 
 
 @app.route('/edit-article', methods=['GET', 'POST'])
+@admin_only
 def edit_article_page():
     articles = Article.query.all()
     return render_template("edit-article.html", articles = articles)
 
 
 @app.route('/edit-article-form/<article_id>', methods=['GET', 'POST'])
+@admin_only
 def edit_article_form_page(article_id):
     article = Article.query.filter(Article.id == article_id).one()
     edit_article_form = CreatePostForm(title=article.title, img_url=article.img_url,subtitle=article.subtitle, body=article.body) 
@@ -267,6 +271,7 @@ def edit_article_form_page(article_id):
 
 
 @app.route('/delete-article/<article_id>', methods=['GET', 'POST'])
+@admin_only
 def delete_article(article_id):
     article = Article.query.filter(Article.id == article_id).one()
 
@@ -280,6 +285,7 @@ def delete_article(article_id):
         
 
 @app.route('/add-project', methods=['GET', 'POST'])
+@admin_only
 def add_project_page():
     form = AddProjectForm()
 
@@ -302,11 +308,13 @@ def add_project_page():
     return render_template('add_project.html', form=form)
 
 @app.route('/edit-project')
+@admin_only
 def edit_project_page():
     projects = Project.query.all()
     return render_template('edit_project.html', projects=projects)
 
 @app.route('/delete-project/<project_id>', methods=['GET', 'POST'])
+@admin_only
 def delete_project(project_id):
     project = Project.query.filter(Project.id == project_id).one()
 
@@ -319,6 +327,7 @@ def delete_project(project_id):
     return jsonify(error= 'Project Not Found'), 404
 
 @app.route('/edit-project-form/<project_id>', methods=['GET', 'POST'])
+@admin_only
 def edit_project_form_page(project_id):
     project = Project.query.filter(Project.id == project_id).one()
     edit_project_form = AddProjectForm(excerpt=project.excerpt, image=project.img_url, web_url=project.web_url) 
@@ -350,21 +359,49 @@ def admin_signup_page():
     form = SignUpForm()
     if form.validate_on_submit():
         if request.method == "POST":
-            encrypted_password = encrypt_password(form.password.data)
-            
-            user = User(
-                name= form.name.data,
-                email= form.email.data,
-                password= encrypted_password,
-                admin = False
-            )
+            try:
+                exists = User.query.filter(User.email == form.email.data).one()
+                flash('Email Already Exists', "email_error")
 
-            db.session.add(user)
-            db.session.commit()
+            except NoResultFound:
+                    encrypted_password = encrypt_password(form.password.data)
 
+                    user = User(
+                        name= form.name.data,
+                        email= form.email.data,
+                        password= encrypted_password,
+                        admin = False
+                    )
+
+                    db.session.add(user)
+                    db.session.commit()
+                    flash("Sign Up Complete", "signup_success")
+                    return redirect(url_for('admin_signup_page'))
             
-            return redirect(url_for('admin_signup_page'))
     return render_template('admin_signup.html', form=form)
+
+
+@app.route('/admin', methods=["GET", "POST"])
+def admin_login_page():
+    form = LoginForm()
+    if form.validate_on_submit():
+        if request.method == "POST":
+            try:
+                user = User.query.filter(User.email == form.email.data).one()
+                if user.password == encrypt_password(form.password.data):
+                    login_user(user)
+                    return redirect(url_for('homepage'))
+                else:
+                    flash("Password is wrong, please try again.", "password_error")
+                    redirect(url_for('admin_login_page'))
+            
+            except NoResultFound:
+                flash("This Email is not registered", "email_error")
+                redirect(url_for('admin_login_page'))
+
+            
+    return render_template('admin_login.html', form=form)
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
